@@ -1,0 +1,73 @@
+rm: `/user/cloudera/train.csv': No such file or directory
+
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j.properties
+WARNING: Hive CLI is deprecated and migration to Beeline is recommended.
+hive> 
+    > drop table train_csv;
+OK
+Time taken: 0.438 seconds
+hive> 
+    > WARN: The method class org.apache.commons.logging.impl.SLF4JLogFactory#release() was invoked.
+WARN: Please see http://www.slf4j.org/codes.html#release for an explanation.
+Found 3 items
+drwxr-xr-x   - cloudera cloudera          0 2015-09-12 13:20 data
+-rw-r--r--   1 cloudera cloudera      5.9 G 2015-09-13 06:20 train.csv
+-rw-r--r--   1 cloudera cloudera     14.8 M 2015-09-12 13:14 train100k.csv
+
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j.properties
+WARNING: Hive CLI is deprecated and migration to Beeline is recommended.
+hive> 
+    > create table train_csv (
+    > id string, click int, hour string, C1 string, banner_pos string, site_id string, site_domain string, site_category string, app_id string, app_domain string, app_c ategory string, device_id string, device_ip string, device_model string, device_type string, device_conn_type string, C14 string, C15 string, C16 string, C17 string, C1 8 string, C19 string, C20 string, C21 string
+    > )
+    > row format delimited fields terminated by ',';
+OK
+Time taken: 1.005 seconds
+hive> 
+    > load data inpath '/user/cloudera/train.csv'
+    >    into table train_csv;
+Loading data to table default.train_csv
+Table default.train_csv stats: [numFiles=1, totalSize=6311147590]
+OK
+Time taken: 0.778 seconds
+hive> 
+    > select * from train_csv limit 1;
+OK
+1000009418151094273	0	14102100	1005	0	1fbe01fe	f3845767	28905ebd	ecad2386	7801e8d9	07d7df22	a99f214a	ddd2926e	44956a24	1	2	15706	320	50	1722	0	35	-1	79
+Time taken: 0.439 seconds, Fetched: 1 row(s)
+hive> 
+    > WARN: The method class org.apache.commons.logging.impl.SLF4JLogFactory#release() was invoked.
+WARN: Please see http://www.slf4j.org/codes.html#release for an explanation.
+Found 2 items
+drwxr-xr-x   - cloudera cloudera          0 2015-09-12 13:20 data
+-rw-r--r--   1 cloudera cloudera     14.8 M 2015-09-12 13:14 train100k.csv
+Starting Impala Shell without Kerberos authentication
+Connected to quickstart.cloudera:21000
+Server version: impalad version 2.2.0-cdh5 RELEASE (build 2ffd73a4255cefd521362ffe1cfb37463f67f75c)
+COMPRESSION_CODEC set to snappy
+Query: invalidate metadata
+[?1034hWelcome to the Impala shell. Press TAB twice to see a list of available commands.
+
+Copyright (c) 2012 Cloudera, Inc. All rights reserved.
+
+(Shell build version: Impala Shell v2.2.0-cdh5 (2ffd73a) built on Tue Apr 21 12:09:21 PDT 2015)
+[quickstart.cloudera:21000] > [quickstart.cloudera:21000] > [quickstart.cloudera:21000] > 
+Fetched 0 row(s) in 4.29s
+Query: drop table train
+Query: create table train (
+id string, click int, hour string, C1 string, banner_pos string, site_id string, site_domain string, site_category string, app_id string, app_domain string, app_category string, device_id string, device_ip string, device_model string, device_type string, device_conn_type string, C14 string, C15 string, C16 string, C17 string, C18 string, C19 string, C20 string, C21 string
+)
+stored as parquetfile
+[quickstart.cloudera:21000] > [quickstart.cloudera:21000] > [quickstart.cloudera:21000] > [quickstart.cloudera:21000] >                             >                             >                             > 
+Fetched 0 row(s) in 0.15s
+Query: insert into train select * from train_csv
+Inserted 40428968 row(s) in 925.41s
+Query: select * from train limit 1
+[quickstart.cloudera:21000] > [quickstart.cloudera:21000] > [quickstart.cloudera:21000] > [quickstart.cloudera:21000] > +----------------------+-------+----------+------+------------+----------+-------------+---------------+----------+------------+--------------+-----------+-----------+--------------+-------------+------------------+-------+-----+-----+------+-----+-----+-----+-----+
+| id                   | click | hour     | c1   | banner_pos | site_id  | site_domain | site_category | app_id   | app_domain | app_category | device_id | device_ip | device_model | device_type | device_conn_type | c14   | c15 | c16 | c17  | c18 | c19 | c20 | c21 |
++----------------------+-------+----------+------+------------+----------+-------------+---------------+----------+------------+--------------+-----------+-----------+--------------+-------------+------------------+-------+-----+-----+------+-----+-----+-----+-----+
+| 15448261087568014991 | 0     | 14102215 | 1005 | 1          | e151e245 | 7e091613    | f028772b      | ecad2386 | 7801e8d9   | 07d7df22     | a99f214a  | f5631b01  | 620311f4     | 1           | 0                | 16687 | 320 | 50  | 1872 | 3   | 39  | -1  | 23  |
++----------------------+-------+----------+------+------------+----------+-------------+---------------+----------+------------+--------------+-----------+-----------+--------------+-------------+------------------+-------+-----+-----+------+-----+-----+-----+-----+
+Fetched 1 row(s) in 1.89s
+Goodbye cloudera
+[quickstart.cloudera:21000] > [quickstart.cloudera:21000] > 
