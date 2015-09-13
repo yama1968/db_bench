@@ -12,7 +12,7 @@ create table train_features
        (id varchar, hour string, click integer, device_id varchar, p float, nb integer);
 
 insert into train_features
-       select t.id, t.click, t.hour, t.device_id, p, nnb
+       select t.id, t.hour, t.click, t.device_id, p, nnb
        from train as t, device_id_nb_tmp
        where t.device_id = device_id_nb_tmp.device_id;
 
