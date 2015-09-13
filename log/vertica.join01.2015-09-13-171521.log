@@ -1,0 +1,42 @@
+\timing
+Timing is on.
+drop view if exists device_id_nb_tmp;
+DROP VIEW
+Time: First fetch (0 rows): 3,299 ms. All rows formatted: 3,310 ms
+create view device_id_nb_tmp
+       as select device_id, count(*) as nnb, avg(click) as p
+       from train
+       group by device_id;
+CREATE VIEW
+Time: First fetch (0 rows): 4,410 ms. All rows formatted: 4,419 ms
+drop table if exists train_features;
+DROP TABLE
+Time: First fetch (0 rows): 4,889 ms. All rows formatted: 4,919 ms
+create table train_features
+       (id varchar, click integer, device_id varchar, p float, nb integer);
+CREATE TABLE
+Time: First fetch (0 rows): 3,641 ms. All rows formatted: 3,662 ms
+insert into train_features
+       select t.id, t.click, t.device_id, p, nnb
+       from train as t, device_id_nb_tmp
+       where t.device_id = device_id_nb_tmp.device_id;
+  OUTPUT  
+----------
+ 40428967
+(1 row)
+
+Time: First fetch (1 row): 81839,963 ms. All rows formatted: 81840,009 ms
+select click, count(*) from train_features group by click order by click;
+ click |  count   
+-------+----------
+     0 | 33563901
+     1 |  6865066
+(2 rows)
+
+Time: First fetch (2 rows): 1103,828 ms. All rows formatted: 1103,870 ms
+drop table train_features;
+DROP TABLE
+Time: First fetch (0 rows): 116,015 ms. All rows formatted: 116,048 ms
+drop view device_id_nb_tmp;
+DROP VIEW
+Time: First fetch (0 rows): 3,484 ms. All rows formatted: 3,507 ms
