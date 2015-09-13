@@ -1,0 +1,114 @@
+Starting Impala Shell without Kerberos authentication
+Connected to quickstart.cloudera:21000
+Server version: impalad version 2.2.0-cdh5 RELEASE (build 2ffd73a4255cefd521362ffe1cfb37463f67f75c)
+Query: select click, count(*) as nb from train group by click order by click
+[?1034h+-------+----------+
+| click | nb       |
++-------+----------+
+| 0     | 33563902 |
+| 1     | 6865066  |
++-------+----------+
+Fetched 2 row(s) in 2.06s
+Query: select banner_pos, count(*) as nb, avg(click) as p
+       from train
+       group by banner_pos
+       order by banner_pos
++------------+----------+--------------------+
+| banner_pos | nb       | p                  |
++------------+----------+--------------------+
+| 0          | 29109590 | 0.1642723583533811 |
+| 1          | 11247283 | 0.1836144782699964 |
+| 2          | 13001    | 0.1192215983385893 |
+| 3          | 2035     | 0.1828009828009828 |
+| 4          | 7704     | 0.1853582554517134 |
+| 5          | 5778     | 0.1214953271028037 |
+| 7          | 43577    | 0.3201000527801363 |
++------------+----------+--------------------+
+Fetched 7 row(s) in 3.15s
+Query: select count(distinct device_type) from train
++-----------------------------+
+| count(distinct device_type) |
++-----------------------------+
+| 5                           |
++-----------------------------+
+Fetched 1 row(s) in 2.18s
+Query: select device_type, count(*) as nb, avg(click) as p
+       from train
+       group by device_type
+       order by nb desc
++-------------+----------+---------------------+
+| device_type | nb       | p                   |
++-------------+----------+---------------------+
+| 1           | 37304668 | 0.1691757717827699  |
+| 0           | 2220812  | 0.2107314801973332  |
+| 4           | 774272   | 0.09544449495784427 |
+| 5           | 129185   | 0.09384216433796494 |
+| 2           | 31       | 0.06451612903225806 |
++-------------+----------+---------------------+
+Fetched 5 row(s) in 2.77s
+Query: select count(distinct device_id) from train
++---------------------------+
+| count(distinct device_id) |
++---------------------------+
+| 2686408                   |
++---------------------------+
+Fetched 1 row(s) in 5.28s
+Query: drop view if exists device_id
+Query: drop view if exists device_id_type
+Query: create view device_id_type
+       as select device_id, device_type, count(*) as nb 
+       from train
+       group by device_id, device_type
+
+Fetched 0 row(s) in 0.04s
+Query: create view device_id
+       as select device_id, count(*) as nnb, sum(nb) as snb
+       from device_id_type
+       group by device_id
+
+Fetched 0 row(s) in 4.28s
+Query: select nnb, count(*) as nb_device_id
+       from device_id
+       where nnb >= 2
+       group by nnb
+       order by nnb desc
++-----+--------------+
+| nnb | nb_device_id |
++-----+--------------+
+| 4   | 1            |
+| 3   | 13           |
+| 2   | 1465         |
++-----+--------------+
+Fetched 3 row(s) in 12.24s
+Query: drop view device_id
+Query: drop view device_id_type
+Query: select device_id, count(*) as nb, avg(click) as p
+       from train
+       group by device_id
+       order by nb desc
+       limit 20
++-----------+----------+---------------------+
+| device_id | nb       | p                   |
++-----------+----------+---------------------+
+| a99f214a  | 33358309 | 0.1741519631585642  |
+| 0f7c61dc  | 21356    | 0.75810076793407    |
+| c357dbff  | 19667    | 0.63400620328469    |
+| 936e92fb  | 13712    | 0.06381271878646441 |
+| afeffc18  | 9654     | 0.2290242386575513  |
+| 987552d1  | 4187     | 0                   |
+| 28dc8687  | 4101     | 0                   |
+| d857ffbb  | 4004     | 0.2247752247752248  |
+| cef4c8cc  | 3694     | 0.2439090416892258  |
+| b09da1c4  | 3655     | 0.1310533515731874  |
+| 3cdb4052  | 3069     | 0.7888563049853372  |
+| 03559b29  | 2528     | 0                   |
+| 02da5312  | 2497     | 0.1289547456948338  |
+| d2e4c0ab  | 1466     | 0                   |
+| f1d9c744  | 1392     | 0                   |
+| abab24a7  | 1374     | 0                   |
+| 096a6f32  | 1369     | 0                   |
+| 9af87478  | 1355     | 0.0929889298892989  |
+| 73b81e30  | 1182     | 0.5296108291032149  |
+| bbcf14e4  | 1182     | 0                   |
++-----------+----------+---------------------+
+Fetched 20 row(s) in 8.05s
