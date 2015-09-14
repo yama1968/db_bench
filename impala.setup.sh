@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #TRAIN=./data/train100k.gz
-TRAIN=./data/train.gz
+TRAIN=./input/train.gz
 
 hdfs dfs -rm -skipTrash /user/cloudera/train.csv
 

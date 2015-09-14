@@ -1,0 +1,6 @@
+WARNING: Hive CLI is deprecated and migration to Beeline is recommended.
+hive> 
+    > drop table train_csv;
+hive> 
+    > WARN: The method class org.apache.commons.logging.impl.SLF4JLogFactory#release() was invoked.
+WARN: Please see http://www.slf4j.org/codes.html#release for an explanation.
