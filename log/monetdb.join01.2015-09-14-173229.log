@@ -1,0 +1,10 @@
+DROP VIEW: unknown view 'device_id_nb_tmp'
+operation successful (0.0s)
+DROP TABLE: no such table 'train_features'
+syntax error, unexpected HOUR, expecting FOREIGN or PRIMARY or UNIQUE in: "create table train_features
+       (id varchar(20), hour"
+syntax error, unexpected HOUR in: "insert into train_features
+       select t.id, t.hour"
+SELECT: no such table 'train_features'
+DROP TABLE: no such table 'train_features'
+operation successful (0.0s)

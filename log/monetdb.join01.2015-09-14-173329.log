@@ -1,0 +1,4 @@
+DROP VIEW: unknown view 'device_id_nb_tmp'
+operation successful (0.0s)
+DROP TABLE: no such table 'train_features'
+operation successful (0.0s)
