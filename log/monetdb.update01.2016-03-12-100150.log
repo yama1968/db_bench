@@ -1,0 +1,24 @@
+DROP TABLE: no such table 'device_id_nb_tmp'
+create table device_id_nb_tmp
+       as select device_id, count(*) as nnb, avg(click) as p
+       from train
+       group by device_id
+       with data;
+operation successful (0.0s)
+ALTER TABLE: no such column 'nnb'
+alter table train
+      add nnb integer;
+operation successful (0.0s)
+update train
+       set nnb = (select dt.nnb from device_id_nb_tmp dt
+                             where train.device_id = dt.device_id);
+9999 affected rows (0.0s)
+subquery table reference needs alias, use AS xxx in: "select annb, count(*)
+       from (select device_id, avg(nnb) as annb
+          "
+syntax error, unexpected BY in: "by"
+drop table device_id_nb_tmp;
+operation successful (0.0s)
+alter table train 
+      drop column nnb;
+operation successful (0.0s)

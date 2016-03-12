@@ -1,0 +1,10 @@
+DROP VIEW: unknown view 'device_id_nb_tmp'
+create view device_id_nb_tmp
+       as select device_id, count(*) as nnb, avg(click) as p
+       from train
+       group by device_id;
+operation successful (0.0s)
+ALTER TABLE: no such column 'nnb'
+alter table train
+      add nnb integer;
+operation successful (0.0s)

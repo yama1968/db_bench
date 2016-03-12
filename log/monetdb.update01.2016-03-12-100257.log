@@ -1,0 +1,41 @@
+DROP TABLE: no such table 'device_id_nb_tmp'
+create table device_id_nb_tmp
+       as select device_id, count(*) as nnb, avg(click) as p
+       from train
+       group by device_id
+       with data;
+operation successful (0.0s)
+ALTER TABLE: no such column 'nnb'
+alter table train
+      add nnb integer;
+operation successful (0.0s)
+update train
+       set nnb = (select dt.nnb from device_id_nb_tmp dt
+                             where train.device_id = dt.device_id);
+9999 affected rows (0.0s)
+select annb, count(*)
+       from (select device_id, avg(nnb) as annb
+                    from train
+                    group by device_id) as foo
+       group by annb
+       order by annb asc;
++--------------------------+------+
+| annb                     | L2   |
++==========================+======+
+|                        1 |  969 |
+|                        2 |   63 |
+|                        3 |   23 |
+|                        4 |    8 |
+|                        5 |    6 |
+|                        7 |    1 |
+|                        8 |    1 |
+|                        9 |    2 |
+|                       17 |    1 |
+|                     8723 |    1 |
++--------------------------+------+
+10 tuples (0.0s)
+drop table device_id_nb_tmp;
+operation successful (0.0s)
+alter table train 
+      drop column nnb;
+operation successful (0.0s)

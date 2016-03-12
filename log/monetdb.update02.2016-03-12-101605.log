@@ -1,0 +1,23 @@
+DROP TABLE: no such table 'device_id_nb_tmp'
+SELECT: identifier 'nnb' unknown
+ALTER TABLE: no such column 'nnb'
+alter table train
+      add nnb integer;
+operation successful (43.1s)
+SELECT: no such table 'device_id_nb_tmp'
+select annb, count(*)
+       from (select device_id, avg(nnb) as annb
+                    from train
+                    group by device_id) as foo
+       group by annb
+       order by annb asc;
++--------------------------+---------+
+| annb                     | L2      |
++==========================+=========+
+|                     null | 2686408 |
++--------------------------+---------+
+1 tuple (5.5s)
+DROP TABLE: no such table 'device_id_nb_tmp'
+alter table train 
+      drop column nnb;
+operation successful (0.2s)

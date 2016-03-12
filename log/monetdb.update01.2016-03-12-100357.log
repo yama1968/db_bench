@@ -1,0 +1,145 @@
+DROP TABLE: no such table 'device_id_nb_tmp'
+create table device_id_nb_tmp
+       as select device_id, count(*) as nnb, avg(click) as p
+       from train
+       group by device_id
+       with data;
+operation successful (0.1s)
+ALTER TABLE: no such column 'nnb'
+alter table train
+      add nnb integer;
+operation successful (0.1s)
+update train
+       set nnb = (select dt.nnb from device_id_nb_tmp dt
+                             where train.device_id = dt.device_id);
+999999 affected rows (0.2s)
+select annb, count(*)
+       from (select device_id, avg(nnb) as annb
+                    from train
+                    group by device_id) as foo
+       group by annb
+       order by annb asc;
++--------------------------+-------+
+| annb                     | L2    |
++==========================+=======+
+|                        1 | 59853 |
+|                        2 | 12007 |
+|                        3 |  4513 |
+|                        4 |  2281 |
+|                        5 |  1322 |
+|                        6 |   823 |
+|                        7 |   505 |
+|                        8 |   428 |
+|                        9 |   293 |
+|                       10 |   220 |
+|                       11 |   173 |
+|                       12 |   135 |
+|                       13 |   114 |
+|                       14 |    98 |
+|                       15 |    72 |
+|                       16 |    65 |
+|                       17 |    52 |
+|                       18 |    35 |
+|                       19 |    35 |
+|                       20 |    23 |
+|                       21 |    26 |
+|                       22 |    28 |
+|                       23 |    23 |
+|                       24 |    19 |
+|                       25 |     9 |
+|                       26 |    17 |
+|                       27 |    19 |
+|                       28 |    15 |
+|                       29 |     8 |
+|                       30 |    11 |
+|                       31 |     7 |
+|                       32 |    14 |
+|                       33 |     9 |
+|                       34 |    11 |
+|                       35 |     7 |
+|                       36 |     9 |
+|                       37 |     7 |
+|                       38 |     6 |
+|                       39 |     6 |
+|                       40 |     5 |
+|                       41 |     5 |
+|                       42 |     7 |
+|                       43 |     2 |
+|                       44 |     4 |
+|                       45 |     6 |
+|                       46 |     3 |
+|                       47 |     1 |
+|                       48 |     2 |
+|                       49 |     4 |
+|                       50 |     3 |
+|                       51 |     3 |
+|                       52 |     4 |
+|                       53 |     1 |
+|                       54 |     1 |
+|                       55 |     2 |
+|                       56 |     1 |
+|                       57 |     2 |
+|                       58 |     1 |
+|                       59 |     1 |
+|                       60 |     2 |
+|                       61 |     1 |
+|                       63 |     2 |
+|                       64 |     5 |
+|                       65 |     1 |
+|                       66 |     2 |
+|                       67 |     1 |
+|                       68 |     1 |
+|                       70 |     2 |
+|                       71 |     2 |
+|                       72 |     1 |
+|                       73 |     2 |
+|                       74 |     2 |
+|                       75 |     1 |
+|                       76 |     2 |
+|                       81 |     1 |
+|                       82 |     1 |
+|                       84 |     2 |
+|                       85 |     1 |
+|                       87 |     1 |
+|                       88 |     1 |
+|                       91 |     2 |
+|                       92 |     2 |
+|                       94 |     2 |
+|                       96 |     2 |
+|                       97 |     1 |
+|                       98 |     2 |
+|                       99 |     1 |
+|                      100 |     1 |
+|                      101 |     1 |
+|                      104 |     1 |
+|                      106 |     1 |
+|                      108 |     1 |
+|                      109 |     1 |
+|                      110 |     1 |
+|                      113 |     2 |
+|                      115 |     1 |
+|                      116 |     1 |
+|                      117 |     1 |
+|                      118 |     1 |
+|                      119 |     1 |
+|                      121 |     1 |
+|                      130 |     1 |
+|                      133 |     1 |
+|                      135 |     1 |
+|                      155 |     1 |
+|                      195 |     1 |
+|                      214 |     1 |
+|                      246 |     1 |
+|                      267 |     1 |
+|                      274 |     1 |
+|                      292 |     1 |
+|                      482 |     1 |
+|                     1310 |     1 |
+|                   840265 |     1 |
++--------------------------+-------+
+114 tuples (0.0s)
+drop table device_id_nb_tmp;
+operation successful (0.0s)
+alter table train 
+      drop column nnb;
+operation successful (0.0s)
