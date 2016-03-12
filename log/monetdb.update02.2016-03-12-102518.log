@@ -1,0 +1,13 @@
+DROP TABLE: no such table 'device_id_nb_tmp'
+create table device_id_nb_tmp
+       as select * from 
+          (select device_id, count(*) as nnb, avg(click) as p
+           from train
+           group by device_id) as foo
+       where foo.nnb > 1
+       with data;
+operation successful (10.8s)
+syntax error, unexpected IDENT, expecting ON in: "create index device_id_nb_tmp1 device_id_temp"
+DROP INDEX: no such index 'train1'
+syntax error, unexpected IDENT, expecting ON in: "create index train1 train"
+ALTER TABLE: no such column 'nnb'

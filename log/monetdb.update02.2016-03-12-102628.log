@@ -1,0 +1,17 @@
+drop table device_id_nb_tmp;
+operation successful (0.0s)
+create table device_id_nb_tmp
+       as select * from 
+          (select device_id, count(*) as nnb, avg(click) as p
+           from train
+           group by device_id) as foo
+       where foo.nnb > 1
+       with data;
+operation successful (7.4s)
+CREATE INDEX: no such table 'device_id_temp'
+DROP INDEX: no such index 'train1'
+create index train1 on train(device_id);
+operation successful (1.1s)
+alter table train 
+      drop column nnb;
+operation successful (0.0s)

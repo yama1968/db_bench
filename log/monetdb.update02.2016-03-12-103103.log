@@ -1,0 +1,19 @@
+start transaction;
+auto commit mode: off
+create table device_id_nb_tmp
+       as select * from 
+          (select device_id, count(*) as nnb, avg(click) as p
+           from train
+           group by device_id) as foo
+       where foo.nnb > 1
+       with data;
+operation successful (7.3s)
+DROP INDEX: no such index 'train1'
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+COMMIT: failed

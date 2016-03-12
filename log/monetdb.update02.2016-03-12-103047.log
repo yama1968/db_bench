@@ -1,0 +1,13 @@
+start transaction;
+auto commit mode: off
+DROP TABLE: no such table 'device_id_nb_tmp'
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+current transaction is aborted (please ROLLBACK)
+COMMIT: failed
