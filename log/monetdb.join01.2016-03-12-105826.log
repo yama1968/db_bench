@@ -1,0 +1,27 @@
+DROP VIEW: access denied for monetdbuser to schema 'tmp'
+create view device_id_nb_tmp
+       as select device_id, count(*) as nnb, avg(click) as p
+       from train
+       group by device_id;
+operation successful (0.0s)
+DROP TABLE: no such table 'train_features'
+create table train_features
+       (id varchar(20), my_hour varchar(20), click integer, device_id varchar(20), p double, nb integer);
+operation successful (0.0s)
+insert into train_features
+       select t.id, t.my_hour, t.click, t.device_id, p, nnb
+       from train as t, device_id_nb_tmp
+       where t.device_id = device_id_nb_tmp.device_id;
+40428967 affected rows (32.9s)
+select click, count(*) from train_features group by click order by click;
++-------+----------+
+| click | L1       |
++=======+==========+
+|     0 | 33563901 |
+|     1 |  6865066 |
++-------+----------+
+2 tuples (0.5s)
+drop table train_features;
+operation successful (0.1s)
+drop view device_id_nb_tmp;
+operation successful (0.0s)
