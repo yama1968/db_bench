@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #TRAIN=./data/train100k.gz
-TRAIN=./input/train.gz
+#TRAIN=../../../tmp/tiny3.train.csv
+TRAIN=../../../Téléchargements/train.gz
 
 hdfs dfs -rm -skipTrash /user/cloudera/train.csv
 
@@ -13,6 +14,8 @@ END
 
 
 gunzip < $TRAIN | tail -n +2 | hdfs dfs -put - /user/cloudera/train.csv
+#cat < $TRAIN | tail -n +2 | hdfs dfs -put - /user/cloudera/train.csv
+
 hdfs dfs -ls -h
 
 sudo -u hdfs hive <<END
