@@ -1,77 +1,93 @@
 Starting Impala Shell without Kerberos authentication
 Connected to quickstart.cloudera:21000
-Server version: impalad version 2.2.0-cdh5.4.2 RELEASE (build b7f0e80e29971632ae1c422243d56c9ef65b8c5b)
+Server version: impalad version 2.7.0-cdh5.9.1 RELEASE (build 24ad6df788d66e4af9496edb26ac4d1f1d2a1f2c)
 Query: select click, count(*) as nb from train group by click order by click
-[?1034h+-------+----------+
+Query submitted at: 2017-01-31 15:35:55 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=f748404e98f67fd8:d72ac7e800000000
++-------+----------+
 | click | nb       |
 +-------+----------+
-| 0     | 33563902 |
+| 0     | 33563901 |
 | 1     | 6865066  |
 +-------+----------+
-Fetched 2 row(s) in 2.01s
+Fetched 2 row(s) in 1.45s
 Query: select banner_pos, count(*) as nb, avg(click) as p
        from train
        group by banner_pos
        order by banner_pos
+Query submitted at: 2017-01-31 15:35:57 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=9d47044a09526554:4f99260b00000000
 +------------+----------+--------------------+
 | banner_pos | nb       | p                  |
 +------------+----------+--------------------+
 | 0          | 29109590 | 0.1642723583533811 |
-| 1          | 11247283 | 0.1836144782699964 |
+| 1          | 11247282 | 0.1836144945952276 |
 | 2          | 13001    | 0.1192215983385893 |
 | 3          | 2035     | 0.1828009828009828 |
 | 4          | 7704     | 0.1853582554517134 |
 | 5          | 5778     | 0.1214953271028037 |
 | 7          | 43577    | 0.3201000527801363 |
 +------------+----------+--------------------+
-Fetched 7 row(s) in 2.38s
+Fetched 7 row(s) in 2.16s
 Query: select count(distinct device_type) from train
+Query submitted at: 2017-01-31 15:35:59 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=c4b6d5a11588d15:385e8f2a00000000
 +-----------------------------+
 | count(distinct device_type) |
 +-----------------------------+
 | 5                           |
 +-----------------------------+
-Fetched 1 row(s) in 1.73s
+Fetched 1 row(s) in 1.77s
 Query: select device_type, count(*) as nb, avg(click) as p
        from train
        group by device_type
        order by nb desc
+Query submitted at: 2017-01-31 15:36:00 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=5c4c93c4ebab9e67:28f5006800000000
 +-------------+----------+---------------------+
 | device_type | nb       | p                   |
 +-------------+----------+---------------------+
-| 1           | 37304668 | 0.1691757717827699  |
+| 1           | 37304667 | 0.169175776317746   |
 | 0           | 2220812  | 0.2107314801973332  |
 | 4           | 774272   | 0.09544449495784427 |
 | 5           | 129185   | 0.09384216433796494 |
 | 2           | 31       | 0.06451612903225806 |
 +-------------+----------+---------------------+
-Fetched 5 row(s) in 2.17s
+Fetched 5 row(s) in 2.14s
 Query: select count(distinct device_id) from train
+Query submitted at: 2017-01-31 15:36:03 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=a44ea4e1b8560160:2aa97e5900000000
 +---------------------------+
 | count(distinct device_id) |
 +---------------------------+
 | 2686408                   |
 +---------------------------+
-Fetched 1 row(s) in 6.11s
+Fetched 1 row(s) in 4.03s
 Query: drop view if exists device_id
 Query: drop view if exists device_id_type
 Query: create view device_id_type
        as select device_id, device_type, count(*) as nb 
        from train
        group by device_id, device_type
+Query submitted at: 2017-01-31 15:36:07 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=9541293d4e3d5eb8:234f81700000000
 
-Fetched 0 row(s) in 0.10s
+Fetched 0 row(s) in 0.12s
 Query: create view device_id
        as select device_id, count(*) as nnb, sum(nb) as snb
        from device_id_type
        group by device_id
+Query submitted at: 2017-01-31 15:36:07 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=7d43dd4f036d8aea:6a25e22f00000000
 
-Fetched 0 row(s) in 2.98s
+Fetched 0 row(s) in 4.95s
 Query: select nnb, count(*) as nb_device_id
        from device_id
        where nnb >= 2
        group by nnb
        order by nnb desc
+Query submitted at: 2017-01-31 15:36:12 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=3d4a57e9c5c14bb0:a872624200000000
 +-----+--------------+
 | nnb | nb_device_id |
 +-----+--------------+
@@ -79,7 +95,7 @@ Query: select nnb, count(*) as nb_device_id
 | 3   | 13           |
 | 2   | 1465         |
 +-----+--------------+
-Fetched 3 row(s) in 13.37s
+Fetched 3 row(s) in 10.12s
 Query: drop view device_id
 Query: drop view device_id_type
 Query: select device_id, count(*) as nb, avg(click) as p
@@ -87,10 +103,12 @@ Query: select device_id, count(*) as nb, avg(click) as p
        group by device_id
        order by nb desc
        limit 20
+Query submitted at: 2017-01-31 15:36:22 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=5a46550248ead2f8:408d656600000000
 +-----------+----------+---------------------+
 | device_id | nb       | p                   |
 +-----------+----------+---------------------+
-| a99f214a  | 33358309 | 0.1741519631585642  |
+| a99f214a  | 33358308 | 0.1741519683792116  |
 | 0f7c61dc  | 21356    | 0.75810076793407    |
 | c357dbff  | 19667    | 0.63400620328469    |
 | 936e92fb  | 13712    | 0.06381271878646441 |
@@ -111,4 +129,4 @@ Query: select device_id, count(*) as nb, avg(click) as p
 | 73b81e30  | 1182     | 0.5296108291032149  |
 | bbcf14e4  | 1182     | 0                   |
 +-----------+----------+---------------------+
-Fetched 20 row(s) in 8.80s
+Fetched 20 row(s) in 6.49s

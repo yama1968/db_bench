@@ -10,7 +10,8 @@ drop view if exists train3;
 
 
 create view train3
-  as select *, 
+  as select device_id,
+            device_ip,
             cast(substring(hour, 5, 2) as int) as int_day, 
             cast(substring(hour, 7, 2) as int) as int_hour
        from train;
@@ -21,7 +22,8 @@ create view device_plus_dt
             device_ip, 
             int_day, 
             int_hour, 
-            int_hour - lag(int_hour) over (partition by device_id, device_ip, int_day order by int_hour) as dt_hour
+            int_hour - lag(int_hour) over (partition by device_id, device_ip, int_day 
+                                           order by int_hour) as dt_hour
        from train3;
 
 

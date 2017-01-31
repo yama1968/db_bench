@@ -1,0 +1,37 @@
+Starting Impala Shell without Kerberos authentication
+Connected to quickstart.cloudera:21000
+Server version: impalad version 2.7.0-cdh5.9.1 RELEASE (build 24ad6df788d66e4af9496edb26ac4d1f1d2a1f2c)
+Query: /*
+
+*/
+
+
+drop view if exists dt_distrib
+Query submitted at: 2017-01-31 15:28:44 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=6245aa5c956b43db:df92b5b900000000
+
+Fetched 0 row(s) in 4.67s
+Query: drop view if exists dt_per_day
+Query: drop view if exists device_plus_dt
+Query: drop view if exists train3
+Query: create view train3
+  as select device_id,
+            device_ip,, 
+            cast(substring(hour, 5, 2) as int) as int_day, 
+            cast(substring(hour, 7, 2) as int) as int_hour
+       from train
+Query submitted at: 2017-01-31 15:29:00 (Coordinator: http://quickstart.cloudera:25000)
+ERROR: AnalysisException: Syntax error in line 3:
+            device_ip,, 
+                      ^
+Encountered: COMMA
+Expected: CASE, CAST, EXISTS, FALSE, IF, INTERVAL, NOT, NULL, TRUNCATE, TRUE, IDENTIFIER
+
+CAUSED BY: Exception: Syntax error
+
+Could not execute command: create view train3
+  as select device_id,
+            device_ip,, 
+            cast(substring(hour, 5, 2) as int) as int_day, 
+            cast(substring(hour, 7, 2) as int) as int_hour
+       from train

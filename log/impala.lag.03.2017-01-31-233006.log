@@ -7,22 +7,23 @@ Query: /*
 
 
 drop view if exists dt_distrib
-Query submitted at: 2017-01-31 12:34:13 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=3d4ff7583ad5c39d:d3f6092400000000
+Query submitted at: 2017-01-31 15:30:06 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=a5471470b95b101b:fd47bc2800000000
 
-Fetched 0 row(s) in 0.09s
+Fetched 0 row(s) in 0.00s
 Query: drop view if exists dt_per_day
 Query: drop view if exists device_plus_dt
 Query: drop view if exists train3
 Query: create view train3
-  as select *, 
+  as select device_id,
+            device_ip,
             cast(substring(hour, 5, 2) as int) as int_day, 
             cast(substring(hour, 7, 2) as int) as int_hour
        from train
-Query submitted at: 2017-01-31 12:34:14 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=80464ded51751a1a:ba5ce7ec00000000
+Query submitted at: 2017-01-31 15:30:06 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=2a4caf3e7f42c61b:406315e200000000
 
-Fetched 0 row(s) in 0.08s
+Fetched 0 row(s) in 4.21s
 Query: create view device_plus_dt
   as select device_id, 
             device_ip, 
@@ -30,10 +31,10 @@ Query: create view device_plus_dt
             int_hour, 
             int_hour - lag(int_hour) over (partition by device_id, device_ip, int_day order by int_hour) as dt_hour
        from train3
-Query submitted at: 2017-01-31 12:34:14 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=41420232a49a85e1:612ffb0800000000
+Query submitted at: 2017-01-31 15:30:10 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=ec41a2eb61cf0cb6:9ea6d36c00000000
 
-Fetched 0 row(s) in 3.60s
+Fetched 0 row(s) in 4.04s
 Query: create view dt_per_day
   as select int_day,
             sum(dt_hour) as sum_dt_hour,
@@ -42,15 +43,15 @@ Query: create view dt_per_day
        from device_plus_dt
       where dt_hour is not NULL
    group by int_day
-Query submitted at: 2017-01-31 12:34:17 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=f845207a26c22871:551c0a9900000000
+Query submitted at: 2017-01-31 15:30:14 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=20452f817e61fff5:51f1299200000000
 
-Fetched 0 row(s) in 3.97s
+Fetched 0 row(s) in 3.94s
 Query: select *
        from dt_per_day
    order by int_day
-Query submitted at: 2017-01-31 12:34:21 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=91419afe868d5168:72e05c4f00000000
+Query submitted at: 2017-01-31 15:30:18 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=a14d931ae7ff9b38:732c2a6300000000
 +---------+-------------+-------------+--------------------+
 | int_day | sum_dt_hour | num_per_day | avg_per_day        |
 +---------+-------------+-------------+--------------------+
@@ -65,22 +66,22 @@ Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?
 | 29      | 1372527     | 2680372     | 0.5120658624996829 |
 | 30      | 1421704     | 3050134     | 0.4661119806539647 |
 +---------+-------------+-------------+--------------------+
-Fetched 10 row(s) in 142.65s
+Fetched 10 row(s) in 148.16s
 Query: create view dt_distrib
   as select dt_hour,
      	    count(*) as num_dt
        from device_plus_dt
       where dt_hour is not NULL
    group by dt_hour
-Query submitted at: 2017-01-31 12:36:44 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=8e401e37751a8152:61cd401100000000
+Query submitted at: 2017-01-31 15:32:46 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=184932a0c9d81dd0:ba997b2200000000
 
-Fetched 0 row(s) in 0.18s
+Fetched 0 row(s) in 0.42s
 Query: select *
        from dt_distrib
    order by dt_hour
-Query submitted at: 2017-01-31 12:36:45 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=cd45b5ab97c59c05:78af4a4c00000000
+Query submitted at: 2017-01-31 15:32:47 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=bf43c9673f5154f3:a96cdfd000000000
 +---------+----------+
 | dt_hour | num_dt   |
 +---------+----------+
@@ -109,4 +110,4 @@ Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?
 | 22      | 1925     |
 | 23      | 1071     |
 +---------+----------+
-Fetched 24 row(s) in 145.81s
+Fetched 24 row(s) in 140.28s
