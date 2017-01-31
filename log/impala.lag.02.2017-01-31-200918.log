@@ -1,0 +1,42 @@
+Starting Impala Shell without Kerberos authentication
+Connected to quickstart.cloudera:21000
+Server version: impalad version 2.7.0-cdh5.9.1 RELEASE (build 24ad6df788d66e4af9496edb26ac4d1f1d2a1f2c)
+Query: /*
+
+*/
+
+
+
+drop view if exists dt_per_day
+Query submitted at: 2017-01-31 12:09:19 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=7e4ead72ca8b34d6:d23a024900000000
+
+Fetched 0 row(s) in 0.02s
+Query: drop view if exists device_plus_dt
+Query: drop view if exists train3
+Query: create view train3
+  as select *, 
+            cast(substring(hour, 5, 2) as int) as int_day, 
+            cast(substring(hour, 7, 2) as int) as int_hour
+       from train
+Query submitted at: 2017-01-31 12:09:19 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=c04fa6b697142cb5:6173d25300000000
+
+Fetched 0 row(s) in 0.15s
+Query: create view device_plus_dt
+  as select device_id, 
+            device_ip, 
+            int_day, 
+            int_hour, 
+            int_hour - lag(int_hour) over (partition by device_id, device_ip, day order by id) as dt_hour
+       from train3
+Query submitted at: 2017-01-31 12:09:19 (Coordinator: http://quickstart.cloudera:25000)
+ERROR: AnalysisException: Could not resolve column/field reference: 'day'
+
+Could not execute command: create view device_plus_dt
+  as select device_id, 
+            device_ip, 
+            int_day, 
+            int_hour, 
+            int_hour - lag(int_hour) over (partition by device_id, device_ip, day order by id) as dt_hour
+       from train3

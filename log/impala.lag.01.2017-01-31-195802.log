@@ -7,31 +7,31 @@ Query: drop view if exists device_id_ip_seq
 Query: drop view if exists train2
 Query: create view train2
        as select *, substring(hour, 1, 6) as day from train
-Query submitted at: 2017-01-29 12:52:57 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=d7407d6b9b68c6f0:6b6ead400000000
+Query submitted at: 2017-01-31 11:58:19 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=574feab020efff58:49cf3add00000000
 
-Fetched 0 row(s) in 0.15s
+Fetched 0 row(s) in 4.21s
 Query: create view device_id_ip_seq
   as select device_id, device_ip, day, hour, 
    	    row_number() over (partition by device_id, device_ip, day order by device_id, device_ip, hour) as row_number
        from train2
-Query submitted at: 2017-01-29 12:52:57 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=d04b7e3fc47a32fe:2706990000000000
+Query submitted at: 2017-01-31 11:58:23 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=104ace282de11b89:9375e91700000000
 
-Fetched 0 row(s) in 3.83s
+Fetched 0 row(s) in 3.96s
 Query: select count(*)
   from device_id_ip_seq
-Query submitted at: 2017-01-29 12:53:01 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=ec41b9cb68276275:485ee51e00000000
+Query submitted at: 2017-01-31 11:58:27 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=9b4161c9d84ecd0e:961edc6a00000000
 +----------+
 | count(*) |
 +----------+
 | 40428967 |
 +----------+
-Fetched 1 row(s) in 4.34s
+Fetched 1 row(s) in 4.69s
 Query: select * from device_id_ip_seq limit 10
-Query submitted at: 2017-01-29 12:53:05 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=a849a932a063cce3:8bbcea4200000000
+Query submitted at: 2017-01-31 11:58:32 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=48414cb326ddbe34:355f28200000000
 +-----------+-----------+--------+----------+------------+
 | device_id | device_ip | day    | hour     | row_number |
 +-----------+-----------+--------+----------+------------+
@@ -46,18 +46,18 @@ Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?
 | 00001237  | a9e0c59c  | 141022 | 14102218 | 5          |
 | 00001237  | a9e0c59c  | 141022 | 14102218 | 6          |
 +-----------+-----------+--------+----------+------------+
-Fetched 10 row(s) in 90.57s
+Fetched 10 row(s) in 117.91s
 Query: create view device_id_ip_number
   as select device_id, device_ip, day, max(row_number) as number
        from device_id_ip_seq
    group by device_id, device_ip, day
-Query submitted at: 2017-01-29 12:54:36 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=de49459be4f3bdf3:4944240900000000
+Query submitted at: 2017-01-31 12:00:30 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=4f4fb2987a27ac6f:177deceb00000000
 
-Fetched 0 row(s) in 0.05s
+Fetched 0 row(s) in 0.53s
 Query: select * from device_id_ip_number limit 10
-Query submitted at: 2017-01-29 12:54:36 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=da47eeb411fa7d31:30dbc7f800000000
+Query submitted at: 2017-01-31 12:00:30 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=44f3e38253162ef:d822f38300000000
 +-----------+-----------+--------+--------+
 | device_id | device_ip | day    | number |
 +-----------+-----------+--------+--------+
@@ -72,20 +72,20 @@ Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?
 | a99f214a  | 1eb6ed5f  | 141023 | 1      |
 | 074d749a  | 64493e21  | 141027 | 1      |
 +-----------+-----------+--------+--------+
-Fetched 10 row(s) in 125.65s
+Fetched 10 row(s) in 163.51s
 Query: create view numbers_per_day
   as select day, number, count(*) as count_devices
        from device_id_ip_number
    group by day, number
-Query submitted at: 2017-01-29 12:56:42 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=28460e6b2386d0f8:c36fd95f00000000
+Query submitted at: 2017-01-31 12:03:14 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=a14636ca20e20f78:f930ff2000000000
 
-Fetched 0 row(s) in 0.06s
+Fetched 0 row(s) in 0.53s
 Query: select * 
     from numbers_per_day
 order by day, number
-Query submitted at: 2017-01-29 12:56:42 (Coordinator: http://quickstart.cloudera:25000)
-Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=194c62cff2f8df17:23069f4e00000000
+Query submitted at: 2017-01-31 12:03:14 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=5b4e45d0c1a00894:1ab481a000000000
 +--------+--------+---------------+
 | day    | number | count_devices |
 +--------+--------+---------------+
@@ -6233,4 +6233,4 @@ Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?
 | 141030 | 10701  | 1             |
 | 141030 | 16551  | 1             |
 +--------+--------+---------------+
-Fetched 6123 row(s) in 125.51s
+Fetched 6123 row(s) in 163.39s

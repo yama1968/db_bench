@@ -1,0 +1,109 @@
+Starting Impala Shell without Kerberos authentication
+Connected to quickstart.cloudera:21000
+Server version: impalad version 2.7.0-cdh5.9.1 RELEASE (build 24ad6df788d66e4af9496edb26ac4d1f1d2a1f2c)
+Query: /*
+
+*/
+
+
+drop view if exists dt_distrib
+Query submitted at: 2017-01-31 12:21:43 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=344e595c768f1b6e:eaf7b7bf00000000
+
+Fetched 0 row(s) in 0.03s
+Query: drop view if exists dt_per_day
+Query: drop view if exists device_plus_dt
+Query: drop view if exists train3
+Query: create view train3
+  as select *, 
+            cast(substring(hour, 5, 2) as int) as int_day, 
+            cast(substring(hour, 7, 2) as int) as int_hour
+       from train
+Query submitted at: 2017-01-31 12:21:44 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=93427b8abe4869a9:8d5c2aea00000000
+
+Fetched 0 row(s) in 0.07s
+Query: create view device_plus_dt
+  as select device_id, 
+            device_ip, 
+            int_day, 
+            int_hour, 
+            int_hour - lag(int_hour) over (partition by device_id, device_ip, int_day order by int_hour) as dt_hour
+       from train3
+Query submitted at: 2017-01-31 12:21:44 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=774f6c4fdcbbfc4e:a83e7c6900000000
+
+Fetched 0 row(s) in 2.80s
+Query: create view dt_per_day
+  as select int_day,
+            sum(dt_hour) as sum_dt_hour,
+            count(dt_hour) as num_per_day,
+            sum(dt_hour) / count(dt_hour) as avg_per_day
+       from device_plus_dt
+   group by int_day
+Query submitted at: 2017-01-31 12:21:47 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=d849b62d5bcc520b:8698c3b400000000
+
+Fetched 0 row(s) in 4.10s
+Query: select *
+       from dt_per_day
+Query submitted at: 2017-01-31 12:21:51 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=dc400ff771fa07f2:6a6a289500000000
++---------+-------------+-------------+--------------------+
+| int_day | sum_dt_hour | num_per_day | avg_per_day        |
++---------+-------------+-------------+--------------------+
+| 22      | 1533808     | 3938277     | 0.3894616859098535 |
+| 26      | 1461907     | 2731226     | 0.5352566942464666 |
+| 28      | 1625403     | 3883746     | 0.4185142385727594 |
+| 24      | 1129067     | 2436128     | 0.4634678473380709 |
+| 30      | 1421704     | 3050134     | 0.4661119806539647 |
+| 21      | 1456197     | 2862634     | 0.5086912961978374 |
+| 23      | 1351556     | 2766451     | 0.4885523004022121 |
+| 25      | 1225048     | 2409935     | 0.5083323824086542 |
+| 27      | 1277660     | 2259048     | 0.565574525198225  |
+| 29      | 1372527     | 2680372     | 0.5120658624996829 |
++---------+-------------+-------------+--------------------+
+Fetched 10 row(s) in 142.69s
+Query: create view dt_distrib
+  as select dt_hour,
+     	    count(*) as num_dt
+       from device_plus_dt
+   group by dt_hour
+Query submitted at: 2017-01-31 12:24:14 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=3544440eb0ea1c2e:88af5afb00000000
+
+Fetched 0 row(s) in 0.05s
+Query: select *
+       from dt_distrib
+Query submitted at: 2017-01-31 12:24:14 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=504f3214ea1e57fc:c03169a100000000
++---------+----------+
+| dt_hour | num_dt   |
++---------+----------+
+| 7       | 105216   |
+| 8       | 81210    |
+| 23      | 1071     |
+| 16      | 10807    |
+| 15      | 14336    |
+| 0       | 23417384 |
+| 6       | 138858   |
+| 22      | 1925     |
+| 9       | 63402    |
+| 14      | 18370    |
+| 17      | 8264     |
+| 1       | 3288278  |
+| 3       | 435016   |
+| 19      | 5026     |
+| 12      | 30921    |
+| 11      | 39064    |
+| 20      | 3935     |
+| 4       | 274761   |
+| NULL    | 11411016 |
+| 2       | 808308   |
+| 13      | 23934    |
+| 18      | 6428     |
+| 21      | 2869     |
+| 10      | 49689    |
+| 5       | 188879   |
++---------+----------+
+Fetched 25 row(s) in 138.65s

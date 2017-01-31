@@ -1,0 +1,2 @@
+Starting Impala Shell without Kerberos authentication
+Could not open file './impala.join01.sql.sql': [Errno 2] No such file or directory: './impala.join01.sql.sql'

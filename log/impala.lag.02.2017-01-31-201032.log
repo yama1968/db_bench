@@ -1,0 +1,66 @@
+Starting Impala Shell without Kerberos authentication
+Connected to quickstart.cloudera:21000
+Server version: impalad version 2.7.0-cdh5.9.1 RELEASE (build 24ad6df788d66e4af9496edb26ac4d1f1d2a1f2c)
+Query: /*
+
+*/
+
+
+
+drop view if exists dt_per_day
+Query submitted at: 2017-01-31 12:10:32 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=65460c1e1b46d598:cfacbca300000000
+
+Fetched 0 row(s) in 0.00s
+Query: drop view if exists device_plus_dt
+Query: drop view if exists train3
+Query: create view train3
+  as select *, 
+            cast(substring(hour, 5, 2) as int) as int_day, 
+            cast(substring(hour, 7, 2) as int) as int_hour
+       from train
+Query submitted at: 2017-01-31 12:10:32 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=b744c6c423c93af5:1d8a172c00000000
+
+Fetched 0 row(s) in 0.08s
+Query: create view device_plus_dt
+  as select device_id, 
+            device_ip, 
+            int_day, 
+            int_hour, 
+            int_hour - lag(int_hour) over (partition by device_id, device_ip, int_day order by id) as dt_hour
+       from train3
+Query submitted at: 2017-01-31 12:10:32 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=554288e76fd1011d:ee42b0ea00000000
+
+Fetched 0 row(s) in 3.65s
+Query: create view dt_per_day
+  as select int_day,
+            sum(dt_hour) as sum_dt_hour,
+            count(dt_hour) as num_per_day,
+            sum(dt_hour) / count(dt_hour) as avg_per_day
+       from device_plus_dt
+   group by int_day
+Query submitted at: 2017-01-31 12:10:36 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=154a8f26d93ba712:47d9d21b00000000
+
+Fetched 0 row(s) in 3.92s
+Query: select *
+       from dt_per_day
+Query submitted at: 2017-01-31 12:10:40 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=704548053e192c2b:8ac7665100000000
++---------+-------------+-------------+------------------------+
+| int_day | sum_dt_hour | num_per_day | avg_per_day            |
++---------+-------------+-------------+------------------------+
+| 22      | -984        | 3938277     | -0.0002498554570945619 |
+| 26      | 3090        | 2731226     | 0.00113136005588699    |
+| 28      | -10815      | 3883746     | -0.00278468262342594   |
+| 24      | -774        | 2436128     | -0.0003177172956429219 |
+| 30      | -2834       | 3050134     | -0.0009291395066577403 |
+| 21      | -1052       | 2862634     | -0.0003674937138313874 |
+| 23      | 765         | 2766451     | 0.000276527579920989   |
+| 25      | -1897       | 2409935     | -0.0007871581598673823 |
+| 27      | -4063       | 2259048     | -0.001798545227901311  |
+| 29      | 468         | 2680372     | 0.000174602629784224   |
++---------+-------------+-------------+------------------------+
+Fetched 10 row(s) in 200.44s
