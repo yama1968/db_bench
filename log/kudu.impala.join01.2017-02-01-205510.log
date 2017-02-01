@@ -1,0 +1,36 @@
+Starting Impala Shell without Kerberos authentication
+Connected to quickstart.cloudera:21000
+Server version: impalad version 2.7.0-cdh5.10.0 RELEASE (build 785a073cd07e2540d521ecebb8b38161ccbd2aa2)
+Query: drop view if exists device_id_nb_tmp
+Query: create view device_id_nb_tmp
+       as select device_id, cast(count(*) as integer) as nnb, avg(click) as p
+       from train
+       group by device_id
+Query submitted at: 2017-02-01 12:55:11 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=5a4752c402dc7a1a:1a53eea100000000
+
+Fetched 0 row(s) in 0.26s
+Query: drop table if exists train_features
+Query: create table train_features
+       (id string, hour string, click integer, device_id string, p double, nb integer)
+
+Fetched 0 row(s) in 0.13s
+Query: insert into train_features
+       select t.id, t.hour, t.click, t.device_id, p, nnb
+       from train as t, device_id_nb_tmp
+       where t.device_id = device_id_nb_tmp.device_id
+Query submitted at: 2017-02-01 12:55:11 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=204490839fcb2271:8d2e2e2600000000
+Modified 40428967 row(s) in 97.72s
+Query: select click, count(*) from train_features group by click order by click
+Query submitted at: 2017-02-01 12:56:49 (Coordinator: http://quickstart.cloudera:25000)
+Query progress can be monitored at: http://quickstart.cloudera:25000/query_plan?query_id=2e40e32988d823f2:942a386400000000
++-------+----------+
+| click | count(*) |
++-------+----------+
+| 0     | 33563901 |
+| 1     | 6865066  |
++-------+----------+
+Fetched 2 row(s) in 2.90s
+Query: drop table train_features
+Query: drop view device_id_nb_tmp
