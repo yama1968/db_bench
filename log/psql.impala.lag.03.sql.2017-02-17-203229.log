@@ -1,0 +1,31 @@
+Timing is on.
+psql:./impala.lag.03.sql:6: NOTICE:  view "dt_distrib" does not exist, skipping
+DROP VIEW
+Time: 2,288 ms
+psql:./impala.lag.03.sql:7: NOTICE:  view "dt_per_day" does not exist, skipping
+DROP VIEW
+Time: 0,458 ms
+psql:./impala.lag.03.sql:8: NOTICE:  view "device_plus_dt" does not exist, skipping
+DROP VIEW
+Time: 0,611 ms
+psql:./impala.lag.03.sql:9: NOTICE:  view "train3" does not exist, skipping
+DROP VIEW
+Time: 0,651 ms
+psql:./impala.lag.03.sql:17: ERROR:  column "hour" does not exist
+LINE 4:             cast(substring(hour, 5, 2) as int) as int_day, 
+                                   ^
+psql:./impala.lag.03.sql:27: ERROR:  relation "train3" does not exist
+LINE 8:        from train3;
+                    ^
+psql:./impala.lag.03.sql:37: ERROR:  relation "device_plus_dt" does not exist
+LINE 6:        from device_plus_dt
+                    ^
+psql:./impala.lag.03.sql:42: ERROR:  relation "dt_per_day" does not exist
+LINE 2:        from dt_per_day
+                    ^
+psql:./impala.lag.03.sql:50: ERROR:  relation "device_plus_dt" does not exist
+LINE 4:        from device_plus_dt
+                    ^
+psql:./impala.lag.03.sql:55: ERROR:  relation "dt_distrib" does not exist
+LINE 2:        from dt_distrib
+                    ^

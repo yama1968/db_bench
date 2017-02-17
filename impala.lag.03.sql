@@ -44,7 +44,7 @@ create view dt_per_day
 
 create view dt_distrib
   as select dt_hour,
-     	    count(*) as num_dt
+     	      count(*) as num_dt
        from device_plus_dt
       where dt_hour is not NULL
    group by dt_hour;

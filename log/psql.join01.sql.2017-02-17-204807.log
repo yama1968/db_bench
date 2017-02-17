@@ -1,0 +1,19 @@
+Timing is on.
+DROP VIEW
+Time: 68,497 ms
+CREATE VIEW
+Time: 15,371 ms
+DROP TABLE
+Time: 18,121 ms
+CREATE TABLE
+Time: 18,460 ms
+psql:./join01.sql:18: ERROR:  could not extend relation 1663/17154/37450: No space left on device  (seg0 gpdb-sandbox.localdomain:40000 pid=8729)
+ click | count 
+-------+-------
+(0 rows)
+
+Time: 3074,950 ms
+DROP TABLE
+Time: 2598,571 ms
+DROP VIEW
+Time: 492,353 ms

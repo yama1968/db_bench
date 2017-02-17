@@ -1,0 +1,13 @@
+Timing is on.
+psql:./monetdb.join01.sql:2: ERROR:  view "device_id_nb_tmp" does not exist
+CREATE VIEW
+Time: 65,514 ms
+psql:./monetdb.join01.sql:9: ERROR:  table "train_features" does not exist
+psql:./monetdb.join01.sql:12: ERROR:  type "double" does not exist
+psql:./monetdb.join01.sql:17: ERROR:  relation "train_features" does not exist
+psql:./monetdb.join01.sql:19: ERROR:  relation "train_features" does not exist
+LINE 1: select click, count(*) from train_features group by click or...
+                                    ^
+psql:./monetdb.join01.sql:21: ERROR:  table "train_features" does not exist
+DROP VIEW
+Time: 10,817 ms

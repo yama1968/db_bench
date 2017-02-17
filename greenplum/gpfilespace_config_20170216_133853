@@ -1,0 +1,4 @@
+filespace:Train_filespace
+gpdb-sandbox.localdomain:1:/media/sf_yannick/tmp/gp/master/gpseg-1
+gpdb-sandbox.localdomain:2:/media/sf_yannick/tmp/gp/1/gpseg0
+gpdb-sandbox.localdomain:3:/media/sf_yannick/tmp/gp/2/gpseg1

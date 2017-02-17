@@ -1,0 +1,65 @@
+Timing is on.
+psql:./impala.lag.03.sql:6: NOTICE:  view "dt_distrib" does not exist, skipping
+DROP VIEW
+Time: 1,162 ms
+psql:./impala.lag.03.sql:7: NOTICE:  view "dt_per_day" does not exist, skipping
+DROP VIEW
+Time: 0,584 ms
+psql:./impala.lag.03.sql:8: NOTICE:  view "device_plus_dt" does not exist, skipping
+DROP VIEW
+Time: 0,700 ms
+psql:./impala.lag.03.sql:9: NOTICE:  view "train3" does not exist, skipping
+DROP VIEW
+Time: 0,718 ms
+CREATE VIEW
+Time: 63,030 ms
+CREATE VIEW
+Time: 13,341 ms
+CREATE VIEW
+Time: 10,370 ms
+ int_day | sum_dt_hour | num_per_day | avg_per_day 
+---------+-------------+-------------+-------------
+      21 |     1456197 |     2862634 |           0
+      22 |     1533808 |     3938277 |           0
+      23 |     1351556 |     2766451 |           0
+      24 |     1129067 |     2436128 |           0
+      25 |     1225048 |     2409935 |           0
+      26 |     1461907 |     2731226 |           0
+      27 |     1277660 |     2259048 |           0
+      28 |     1625403 |     3883746 |           0
+      29 |     1372527 |     2680372 |           0
+      30 |     1421704 |     3050134 |           0
+(10 rows)
+
+Time: 151897,979 ms
+CREATE VIEW
+Time: 23,060 ms
+ dt_hour |  num_dt  
+---------+----------
+       0 | 23417384
+       1 |  3288278
+       2 |   808308
+       3 |   435016
+       4 |   274761
+       5 |   188879
+       6 |   138858
+       7 |   105216
+       8 |    81210
+       9 |    63402
+      10 |    49689
+      11 |    39064
+      12 |    30921
+      13 |    23934
+      14 |    18370
+      15 |    14336
+      16 |    10807
+      17 |     8264
+      18 |     6428
+      19 |     5026
+      20 |     3935
+      21 |     2869
+      22 |     1925
+      23 |     1071
+(24 rows)
+
+Time: 148336,491 ms
