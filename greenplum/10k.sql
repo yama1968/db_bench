@@ -1,7 +1,9 @@
 
-\timing
+\timing on
 
 DELETE FROM Train;
+
+VACUUM FULL;
 
  COPY Train
  FROM '/home/gpadmin/train10k.csv'

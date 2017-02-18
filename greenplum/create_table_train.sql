@@ -1,6 +1,6 @@
 
 
-DROP TABLE Train;
+DROP TABLE IF EXISTS Train CASCADE;
 DROP TABLESPACE Train;
 
 CREATE TABLESPACE Train
@@ -16,6 +16,6 @@ C17 varchar(20), C18 varchar(20), C19 varchar(20), C20 varchar(20), C21 varchar(
 )
 WITH (appendonly=true, orientation=column, compresstype=zlib, compresslevel=6)
 TABLESPACE Train
-DISTRIBUTED BY (my_hour)
+DISTRIBUTED BY (hour)
 ;
 
