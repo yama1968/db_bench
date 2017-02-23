@@ -1,6 +1,6 @@
 
 copy offset 2 into train
-     from '/media/sf_yannick2/tmp/train.gz'
+     from '/home/yannick/tmp/train.gz'
      delimiters ','
      locked
 ;

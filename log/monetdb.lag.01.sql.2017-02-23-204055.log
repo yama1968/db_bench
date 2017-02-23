@@ -1,0 +1,85 @@
+:0[0]:W
+sSET TIME ZONE INTERVAL '+01:00' HOUR TO MINUTE;
+:0[0]:R
+&3
+:0[0]:R
+:0[0]:W
+S
+:0[0]:R
+:0[0]:W
+Sdrop view  numbers_per_day;
+:0[0]:R
+!42S02!DROP VIEW: unknown view 'numbers_per_day'
+:0[0]:R
+:0[0]:W
+Sdrop view  device_id_ip_number;
+:1[0]:R
+!42S02!DROP VIEW: unknown view 'device_id_ip_number'
+:1[0]:R
+:1[0]:W
+Sdrop view  device_id_ip_seq;
+:1[0]:R
+!42S02!DROP VIEW: unknown view 'device_id_ip_seq'
+:1[0]:R
+:1[0]:W
+Sdrop view  train2;
+:2[0]:R
+!42S02!DROP VIEW: unknown view 'train2'
+:2[0]:R
+:2[0]:W
+S
+:2[0]:R
+:2[0]:W
+S
+:2[0]:R
+:2[0]:W
+Screate view train2
+:2[0]:R
+
+:2[0]:R
+       as select *, substring(my_hour, 1, 6) as my_day from train;
+:14[0]:R
+&3
+:14[0]:R
+:14[0]:W
+S
+:14[0]:R
+:14[0]:W
+Screate view device_id_ip_seq
+:14[0]:R
+
+:14[0]:R
+  as select device_id, device_ip, my_day, my_hour, 
+:15[0]:R
+
+:15[0]:R
+   	    row_number() over (partition by device_id, device_ip, my_day order by device_id, device_ip, my_hour) as row_number
+:15[0]:R
+
+:15[0]:R
+       from train2;
+:24[0]:R
+&3
+:24[0]:R
+:24[0]:W
+S
+:24[0]:R
+:24[0]:W
+Sselect count(*)
+:24[0]:R
+
+:24[0]:R
+  from device_id_ip_seq;
+:45296[0]:R
+&1 0 1 1 1
+% sys.L25 # table_name
+% L24 # name
+% bigint # type
+% 8 # length
+[ 40428967	]
+:45296[0]:R
+:45296[0]:W
+S
+:45296[0]:R
+:45296[0]:W
+Sselect * from device_id_ip_seq limit 10;

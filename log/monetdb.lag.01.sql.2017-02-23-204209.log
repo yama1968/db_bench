@@ -1,0 +1,14 @@
+DROP VIEW: unknown view 'numbers_per_day'
+DROP VIEW: unknown view 'device_id_ip_number'
+drop view  device_id_ip_seq;
+operation successful
+drop view  train2;
+operation successful
+create view train2
+       as select *, substring(my_hour, 1, 6) as my_day from train;
+operation successful
+create view device_id_ip_seq
+  as select device_id, device_ip, my_day, my_hour, 
+   	    row_number() over (partition by device_id, device_ip, my_day order by device_id, device_ip, my_hour) as row_number
+       from train2;
+operation successful
