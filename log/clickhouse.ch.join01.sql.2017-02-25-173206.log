@@ -1,0 +1,22 @@
+
+drop table if exists device_id_nb_tmp
+0.001
+create view device_id_nb_tmp
+       as select device_id, cast(count(*) as Int32) as nnb, avg(click) as p
+       from train
+       group by device_id
+0.010
+drop table if exists train_features
+0.001
+create table train_features
+	ENGINE = Memory
+	as
+       select id, hour, click, device_id, p, nnb
+       from train
+       array join (
+       	select device_id, nnb, p fromdevice_id_nb_tmp
+       	)
+       
+Received exception from server:
+Code: 47. DB::Exception: Received from localhost:9000, 127.0.0.1. DB::Exception: Unknown identifier: p. 
+0.026

@@ -1,0 +1,19 @@
+
+drop table if exists device_id_nb_tmp
+0.001
+create view device_id_nb_tmp
+       as select device_id, cast(count(*) as Int32) as nnb, avg(click) as p
+       from train
+       group by device_id
+0.036
+drop table if exists train_features
+0.000
+create table train_features
+	ENGINE = Memory
+	as
+       select t.id, t.hour, t.click, t.device_id, p, nnb
+       from train as t, device_id_nb_tmp
+       where t.device_id = device_id_nb_tmp.device_id
+Received exception from server:
+Code: 10. DB::Exception: Received from localhost:9000, 127.0.0.1. DB::Exception: Not found column t.id in block. There are only columns: nnb, p. 
+0.018

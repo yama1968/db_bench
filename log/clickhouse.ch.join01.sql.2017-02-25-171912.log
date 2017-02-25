@@ -1,0 +1,10 @@
+
+drop table if exists device_id_nb_tmp
+0.001
+create view device_id_nb_tmp
+       as select device_id, cast(count(*) as integer) as nnb, avg(click) as p
+       from train
+       group by device_id
+Received exception from server:
+Code: 50. DB::Exception: Received from localhost:9000, 127.0.0.1. DB::Exception: Unknown type integer. 
+0.037

@@ -1,0 +1,18 @@
+
+drop table if exists device_id_nb_tmp
+0.001
+create view device_id_nb_tmp
+       as select device_id, cast(count(*) as Int32) as nnb, avg(click) as p
+       from train
+       group by device_id
+0.011
+drop table if exists train_features
+0.001
+Code: 62. DB::Exception: Syntax error: failed at position 204 (line 9, col 1): select click, count(*) from train_features group by click order by click;
+
+drop table train_features;
+drop table device_id_nb_tmp;
+
+
+, expected end of query
+

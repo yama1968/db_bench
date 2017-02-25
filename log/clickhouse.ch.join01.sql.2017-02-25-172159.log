@@ -1,0 +1,15 @@
+
+drop table if exists device_id_nb_tmp
+0.001
+create view device_id_nb_tmp
+       as select device_id, cast(count(*) as Int32) as nnb, avg(click) as p
+       from train
+       group by device_id
+0.010
+drop table if exists train_features
+0.000
+create table train_features
+       (id String, hour String, click Int8, device_id String, p Float32, nb Int32)
+Received exception from server:
+Code: 119. DB::Exception: Received from localhost:9000, 127.0.0.1. DB::Exception: Incorrect CREATE query: required ENGINE.. 
+0.015
