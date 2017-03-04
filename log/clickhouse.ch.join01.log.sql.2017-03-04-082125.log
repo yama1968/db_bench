@@ -1,0 +1,27 @@
+
+drop table if exists device_id_nb_tmp
+0.005
+create view device_id_nb_tmp
+       as select device_id, cast(count(*) as Int32) as nnb, avg(click) as p
+       from train
+       group by device_id
+0.003
+drop table if exists train_features
+0.001
+create table train_features
+	ENGINE = Log
+	as
+       select id, hour, click, device_id, p, nnb
+       from train
+       all left join device_id_nb_tmp
+       using (device_id)
+       
+8.660
+select click, count(*) from train_features group by click order by click
+0	33563901
+1	6865066
+0.085
+drop table train_features
+0.075
+drop table device_id_nb_tmp
+0.001

@@ -1,0 +1,83 @@
+
+
+select click, count(*) as nb from train group by click order by click
+0	33563901
+1	6865066
+0.166
+select banner_pos, count(*) as nb, avg(click) as p
+       from train
+       group by banner_pos
+       order by banner_pos
+0	29109590	0.16427235835338114
+1	11247282	0.18361449459522755
+2	13001	0.11922159833858934
+3	2035	0.1828009828009828
+4	7704	0.1853582554517134
+5	5778	0.12149532710280374
+7	43577	0.3201000527801363
+0.422
+select count(distinct device_type) from train
+5
+0.348
+select device_type, count(*) as nb, avg(click) as p
+       from train
+       group by device_type
+       order by nb desc
+1	37304667	0.16917577631774597
+0	2220812	0.21073148019733323
+4	774272	0.09544449495784427
+5	129185	0.09384216433796494
+2	31	0.06451612903225806
+0.280
+drop table device_id_type
+0.001
+drop table device_id
+0.000
+select count(distinct device_id) from train
+2689181
+0.466
+create view device_id_type
+       as select device_id, device_type, count(*) as nb 
+       from train
+       group by device_id, device_type
+0.003
+create view device_id
+       as select device_id, count(*) as nnb, sum(nb) as snb
+       from device_id_type
+       group by device_id
+0.002
+select nnb, count(*) as nb_device_id
+       from device_id
+       where nnb >= 2
+       group by nnb
+       order by nnb desc
+4	1
+3	13
+2	1465
+2.008
+select device_id, count(*) as nb, avg(click) as p
+       from train
+       group by device_id
+       order by nb desc
+       limit 20
+a99f214a	33358308	0.17415196837921157
+0f7c61dc	21356	0.75810076793407
+c357dbff	19667	0.63400620328469
+936e92fb	13712	0.06381271878646441
+afeffc18	9654	0.22902423865755128
+987552d1	4187	0
+28dc8687	4101	0
+d857ffbb	4004	0.22477522477522477
+cef4c8cc	3694	0.24390904168922578
+b09da1c4	3655	0.13105335157318743
+3cdb4052	3069	0.7888563049853372
+03559b29	2528	0
+02da5312	2497	0.1289547456948338
+d2e4c0ab	1466	0
+f1d9c744	1392	0
+abab24a7	1374	0
+096a6f32	1369	0
+9af87478	1355	0.0929889298892989
+bbcf14e4	1182	0
+73b81e30	1182	0.5296108291032149
+0.889
