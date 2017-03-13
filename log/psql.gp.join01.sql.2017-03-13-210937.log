@@ -1,0 +1,27 @@
+Chronométrage activé.
+SET
+Temps : 0,276 ms
+psql:./gp.join01.sql:2: NOTICE:  la vue « device_id_nb_tmp » n'existe pas, poursuite du traitement
+DROP VIEW
+Temps : 0,348 ms
+CREATE VIEW
+Temps : 12,445 ms
+psql:./gp.join01.sql:9: NOTICE:  la table « train_features » n'existe pas, poursuite du traitement
+DROP TABLE
+Temps : 0,173 ms
+CREATE TABLE
+Temps : 4,342 ms
+psql:./gp.join01.sql:17: ERREUR:  la colonne t.my_hour n'existe pas
+LIGNE 2 :        select t.id, t.my_hour, t.click, t.device_id, p, nnb
+                              ^
+ASTUCE : Peut-être que vous souhaitiez référencer la colonne « t.hour ».
+Temps : 0,853 ms
+ click | count 
+-------+-------
+(0 ligne)
+
+Temps : 0,745 ms
+DROP TABLE
+Temps : 1,853 ms
+DROP VIEW
+Temps : 1,060 ms

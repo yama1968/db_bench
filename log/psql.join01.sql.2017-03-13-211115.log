@@ -1,0 +1,25 @@
+Chronométrage activé.
+SET
+Temps : 0,185 ms
+psql:./join01.sql:2: ERREUR:  la vue « device_id_nb_tmp » n'existe pas
+Temps : 0,405 ms
+CREATE VIEW
+Temps : 10,814 ms
+psql:./join01.sql:9: ERREUR:  la table « train_features » n'existe pas
+Temps : 0,182 ms
+psql:./join01.sql:13: ERREUR:  erreur de syntaxe sur ou près de « distributed »
+LIGNE 3 : distributed by (hour);
+          ^
+Temps : 0,205 ms
+psql:./join01.sql:18: ERREUR:  la relation « train_features » n'existe pas
+LIGNE 1 : insert into train_features
+                      ^
+Temps : 0,119 ms
+psql:./join01.sql:20: ERREUR:  la relation « train_features » n'existe pas
+LIGNE 1 : select click, count(*) from train_features group by click or...
+                                      ^
+Temps : 0,090 ms
+psql:./join01.sql:22: ERREUR:  la table « train_features » n'existe pas
+Temps : 0,075 ms
+DROP VIEW
+Temps : 1,499 ms

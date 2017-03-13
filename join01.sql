@@ -10,7 +10,7 @@ drop table train_features;
 
 create table train_features
        (id varchar(20), hour varchar(20), click integer, device_id varchar(20), p float, nb integer)
-distributed by (hour);
+;
 
 insert into train_features
        select t.id, t.hour, t.click, t.device_id, p, nnb
@@ -21,5 +21,3 @@ select click, count(*) from train_features group by click order by click;
 
 drop table train_features;
 drop view device_id_nb_tmp;
-
-

@@ -1,0 +1,4 @@
+Code: 62. DB::Exception: Syntax error: failed at position 112 (line 7, col 25): "3"
+    );
+, expected identifier
+

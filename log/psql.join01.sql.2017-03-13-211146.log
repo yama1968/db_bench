@@ -1,0 +1,24 @@
+Chronométrage activé.
+SET
+Temps : 0,229 ms
+psql:./join01.sql:2: ERREUR:  la vue « device_id_nb_tmp » n'existe pas
+Temps : 0,427 ms
+CREATE VIEW
+Temps : 10,573 ms
+psql:./join01.sql:9: ERREUR:  la table « train_features » n'existe pas
+Temps : 0,208 ms
+CREATE TABLE
+Temps : 1,974 ms
+INSERT 0 40428967
+Temps : 326475,102 ms
+ click |  count   
+-------+----------
+     0 | 33563901
+     1 |  6865066
+(2 lignes)
+
+Temps : 11222,472 ms
+DROP TABLE
+Temps : 3168,134 ms
+DROP VIEW
+Temps : 99,025 ms

@@ -1,0 +1,107 @@
+Chronométrage activé.
+SET
+Temps : 0,212 ms
+psql:./sql_med_index_test.sql:3: ERREUR:  doit être le propriétaire de la relation train
+Temps : 0,445 ms
+psql:./sql_med_index_test.sql:4: ERREUR:  doit être le propriétaire de la relation train
+Temps : 0,159 ms
+psql:./sql_med_index_test.sql:5: ERREUR:  doit être le propriétaire de la relation train
+Temps : 0,150 ms
+psql:./sql_med_index_test.sql:6: ERREUR:  doit être le propriétaire de la relation train
+Temps : 0,144 ms
+ click |    nb    
+-------+----------
+     0 | 33563901
+     1 |  6865066
+(2 lignes)
+
+Temps : 30920,331 ms
+ banner_pos |    nb    |           p            
+------------+----------+------------------------
+ 0          | 29109590 | 0.16427235835338113659
+ 1          | 11247282 | 0.18361449459522754031
+ 2          |    13001 | 0.11922159833858933928
+ 3          |     2035 | 0.18280098280098280098
+ 4          |     7704 | 0.18535825545171339564
+ 5          |     5778 | 0.12149532710280373832
+ 7          |    43577 | 0.32010005278013631044
+(7 lignes)
+
+Temps : 18027,562 ms
+ count 
+-------
+     5
+(1 ligne)
+
+Temps : 43408,675 ms
+ device_type |    nb    |           p            
+-------------+----------+------------------------
+ 1           | 37304667 | 0.16917577631774598068
+ 0           |  2220812 | 0.21073148019733322767
+ 4           |   774272 | 0.09544449495784427178
+ 5           |   129185 | 0.09384216433796493401
+ 2           |       31 | 0.06451612903225806452
+(5 lignes)
+
+Temps : 3761,023 ms
+  count  
+---------
+ 2686408
+(1 ligne)
+
+Temps : 109802,220 ms
+psql:./sql_med_index_test.sql:26: NOTICE:  la vue « device_id » n'existe pas, poursuite du traitement
+DROP VIEW
+Temps : 7,293 ms
+psql:./sql_med_index_test.sql:27: NOTICE:  la vue « device_id_type » n'existe pas, poursuite du traitement
+DROP VIEW
+Temps : 0,096 ms
+CREATE VIEW
+Temps : 13,966 ms
+CREATE VIEW
+Temps : 2,186 ms
+ nnb | nb_device_id 
+-----+--------------
+   4 |            1
+   3 |           13
+   2 |         1465
+(3 lignes)
+
+Temps : 34649,029 ms
+DROP VIEW
+Temps : 8,672 ms
+DROP VIEW
+Temps : 1,050 ms
+ device_id |    nb    |           p            
+-----------+----------+------------------------
+ a99f214a  | 33358308 | 0.17415196837921155953
+ 0f7c61dc  |    21356 | 0.75810076793407005057
+ c357dbff  |    19667 | 0.63400620328469009000
+ 936e92fb  |    13712 | 0.06381271878646441074
+ afeffc18  |     9654 | 0.22902423865755127408
+ 987552d1  |     4187 | 0.00000000000000000000
+ 28dc8687  |     4101 | 0.00000000000000000000
+ d857ffbb  |     4004 | 0.22477522477522477522
+ cef4c8cc  |     3694 | 0.24390904168922577152
+ b09da1c4  |     3655 | 0.13105335157318741450
+ 3cdb4052  |     3069 | 0.78885630498533724340
+ 03559b29  |     2528 | 0.00000000000000000000
+ 02da5312  |     2497 | 0.12895474569483380056
+ d2e4c0ab  |     1466 | 0.00000000000000000000
+ f1d9c744  |     1392 | 0.00000000000000000000
+ abab24a7  |     1374 | 0.00000000000000000000
+ 096a6f32  |     1369 | 0.00000000000000000000
+ 9af87478  |     1355 | 0.09298892988929889299
+ bbcf14e4  |     1182 | 0.00000000000000000000
+ 73b81e30  |     1182 | 0.52961082910321489002
+(20 lignes)
+
+Temps : 59391,183 ms
+psql:./sql_med_index_test.sql:54: ERREUR:  l'index « foo1 » n'existe pas
+Temps : 3,474 ms
+psql:./sql_med_index_test.sql:55: ERREUR:  l'index « foo2 » n'existe pas
+Temps : 0,221 ms
+psql:./sql_med_index_test.sql:56: ERREUR:  l'index « foo3 » n'existe pas
+Temps : 0,147 ms
+psql:./sql_med_index_test.sql:57: ERREUR:  l'index « foo4 » n'existe pas
+Temps : 0,070 ms

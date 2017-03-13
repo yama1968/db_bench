@@ -1,0 +1,8 @@
+Chronométrage activé.
+SET
+Temps : 0,120 ms
+psql:./count01.sql:8: ERREUR:  la sous-requête du FROM doit avoir un alias
+LIGNE 3 :   FROM (
+                 ^
+ASTUCE : Par exemple, FROM (SELECT...) [AS] quelquechose.
+Temps : 3,507 ms

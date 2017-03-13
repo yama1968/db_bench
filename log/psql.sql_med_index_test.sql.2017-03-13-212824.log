@@ -1,0 +1,11 @@
+Chronométrage activé.
+SET
+Temps : 0,187 ms
+psql:./sql_med_index_test.sql:3: ERREUR:  doit être le propriétaire de la relation train
+Temps : 1,788 ms
+psql:./sql_med_index_test.sql:4: ERREUR:  doit être le propriétaire de la relation train
+Temps : 0,200 ms
+psql:./sql_med_index_test.sql:5: ERREUR:  doit être le propriétaire de la relation train
+Temps : 0,178 ms
+psql:./sql_med_index_test.sql:6: ERREUR:  doit être le propriétaire de la relation train
+Temps : 0,191 ms

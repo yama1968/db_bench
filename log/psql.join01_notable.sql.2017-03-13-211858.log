@@ -1,0 +1,8 @@
+Chronométrage activé.
+SET
+Temps : 0,152 ms
+psql:./join01_notable.sql:15: ERREUR:  la sous-requête du FROM doit avoir un alias
+LIGNE 2 :   FROM (
+                 ^
+ASTUCE : Par exemple, FROM (SELECT...) [AS] quelquechose.
+Temps : 0,327 ms

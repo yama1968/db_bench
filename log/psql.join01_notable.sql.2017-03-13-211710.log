@@ -1,0 +1,7 @@
+Chronométrage activé.
+SET
+Temps : 0,123 ms
+psql:./join01_notable.sql:15: ERREUR:  erreur de syntaxe sur ou près de « ` »
+LIGNE 3 :         SELECT t.id, t.`hour` as my_jour, t.click, t.device_...
+                                 ^
+Temps : 15,937 ms

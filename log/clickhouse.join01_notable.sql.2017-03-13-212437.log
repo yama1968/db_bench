@@ -1,0 +1,7 @@
+Code: 62. DB::Exception: Syntax error: failed at position 148 (line 7, col 11): JOIN (
+                SELECT device_id, count(*) as nnb, avg(click) as p
+                  FROM Train
+                 GROUP BY device_id
+            ) AS DID
+, expected )
+
