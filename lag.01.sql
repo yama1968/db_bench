@@ -9,8 +9,11 @@ create view train2
        as select *, substring(my_hour, 1, 6) as my_day from train;
 
 create view device_id_ip_seq
-  as select device_id, device_ip, my_day, my_hour, 
-   	    row_number() over (partition by device_id, device_ip, my_day order by device_id, device_ip, my_hour) as row_number
+  as select device_id, device_ip, my_day, my_hour,
+   	    row_number() over (
+          partition by device_id, device_ip, my_day
+          order by device_id, device_ip, my_hour
+        ) as row_number
        from train2;
 
 select count(*)
@@ -32,7 +35,6 @@ create view numbers_per_my_day
        from device_id_ip_number
    group by my_day, number;
 
-  select * 
+  select *
     from numbers_per_my_day
 order by my_day, number;
-

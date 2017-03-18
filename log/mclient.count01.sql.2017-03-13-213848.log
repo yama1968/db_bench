@@ -1,6 +1,0 @@
-unsupported formatter
-Welcome to mclient, the MonetDB/SQL interactive terminal (Dec2016-SP2)
-Database: MonetDB v11.25.9 (Dec2016-SP2), 'mapi:monetdb://patty:50000/db'
-Type \q to quit, \? for a list of available commands
-auto commit mode: on
-sql>
