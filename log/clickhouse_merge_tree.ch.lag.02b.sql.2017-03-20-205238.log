@@ -1,0 +1,102 @@
+/*
+
+*/
+
+
+drop table if exists Dt_distrib
+0.009
+drop table if exists Dt_per_day
+0.001
+drop table if exists Device_plus_dt
+0.001
+drop table if exists Device_plus_dt_1
+0.001
+drop table if exists Train3
+0.000
+create view Train3
+  as select *,
+            cast(substring(hour, 5, 2) as Int32) as int_day,
+            cast(substring(hour, 7, 2) as Int32) as int_hour,
+            sipHash64(concat(device_id, device_ip)) as hash_id_ip
+       from Train
+0.006
+create view Device_plus_dt_1
+  as select device_id,
+            device_ip,
+            int_day,
+            int_hour,
+            runningDifference(int_hour) as dt_hour,
+            runningDifference(int_day) as dt_day,
+            runningDifference(hash_id_ip) as dt_id_ip
+       from (
+         select
+            *
+          from default.Train3 order by int_day, device_id, device_ip, int_hour
+         ) AS A
+0.003
+create view Device_plus_dt
+  as select device_id,
+            device_ip,
+            int_day,
+            int_hour,
+            if(dt_id_ip = 0 AND dt_day = 0, dt_hour, NULL) as dt_hour
+       from Device_plus_dt_1
+0.006
+create view Dt_per_day
+  as select int_day,
+            sum(dt_hour) as sum_dt_hour,
+            count(dt_hour) as num_per_day,
+            sum(dt_hour) / count(dt_hour) as avg_per_day
+       from Device_plus_dt
+      where dt_hour is not NULL
+   group by int_day
+0.003
+select *
+       from Dt_per_day
+   order by int_day
+21	1456178	2862659	0.5086802165399372
+22	1533797	3938296	0.38945701389636533
+23	1351534	2766468	0.4885413458604979
+24	1129060	2436148	0.46346116902585555
+25	1225023	2409955	0.5083177901662064
+26	1461879	2731242	0.5352433068911506
+27	1277639	2259067	0.5655604725313592
+28	1625366	3883767	0.4185024487823291
+29	1372513	2680391	0.5120570095930034
+30	1421700	3050157	0.466107154484179
+64.280
+create view Dt_distrib
+  as select dt_hour,
+     	    count(*) as num_dt
+       from Device_plus_dt
+      where dt_hour is not NULL
+   group by dt_hour
+0.011
+select *
+       from Dt_distrib
+   order by dt_hour
+0	23417665
+1	3288231
+2	808294
+3	435008
+4	274758
+5	188875
+6	138857
+7	105214
+8	81210
+9	63402
+10	49688
+11	39063
+12	30921
+13	23934
+14	18370
+15	14336
+16	10806
+17	8264
+18	6428
+19	5026
+20	3935
+21	2869
+22	1925
+23	1071
+62.348

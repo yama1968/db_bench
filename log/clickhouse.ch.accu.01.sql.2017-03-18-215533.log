@@ -1,0 +1,11 @@
+Code: 62. DB::Exception: Syntax error: failed at position 55 (line 5, col 5): clicked,
+    runningDifference(clicked) as diff,
+    total,
+FROM
+(
+    SELECT
+        hour,
+        sumState(click) AS s,
+        sum(click) AS clicked,
+       , expected end of query
+

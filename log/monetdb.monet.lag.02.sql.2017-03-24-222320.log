@@ -1,0 +1,18 @@
+syntax error, unexpected IF in: "drop view if"
+syntax error, unexpected IF in: "drop view if"
+syntax error, unexpected IF in: "drop view if"
+syntax error, unexpected IF in: "drop view if"
+create view train3
+  as select *,
+            cast(substring(my_hour, 5, 2) as int) as int_day,
+            cast(substring(my_hour, 7, 2) as int) as int_my_hour
+       from train;
+operation successful (0.0s)
+syntax error, unexpected ')', expecting ',' in: "create view device_plus_dt
+  as select device_id,
+            device_ip,
+       "
+SELECT: no such table 'device_plus_dt'
+SELECT: no such table 'dt_per_day'
+SELECT: no such table 'device_plus_dt'
+SELECT: no such table 'dt_distrib'

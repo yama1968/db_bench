@@ -1,0 +1,3 @@
+syntax error, unexpected HOUR in: "select click, count(*)
+  from (
+        select t.id, t.hour"

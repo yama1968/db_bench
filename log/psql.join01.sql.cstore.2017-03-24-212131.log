@@ -1,0 +1,3 @@
+psql: n'a pas pu se connecter au serveur : Aucun fichier ou dossier de ce type
+	Le serveur est-il actif localement et accepte-t-il les connexions sur la
+ 	socket Unix « /var/run/postgresql/.s.PGSQL.5432 » ?

@@ -1,0 +1,22 @@
+
+SELECT
+    hour,
+    runningAccumulate(s) AS acc,
+    clicked,
+    runningDifference(clicked) as diff,
+    cnt
+FROM
+(
+    SELECT
+        hour,
+        sumState(click) AS s,
+        sum(click) AS clicked,
+        sum(*) AS cnt
+    FROM Train
+    GROUP BY hour
+    ORDER BY hour ASC
+)
+ORDER BY hour ASC
+Received exception from server:
+Code: 42. DB::Exception: Received from localhost:9000, 127.0.0.1. DB::Exception: Incorrect number of arguments for aggregate function sum. 
+0.041

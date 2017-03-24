@@ -1,5 +1,0 @@
-
-drop table device_id_nb_tmp
-Received exception from server:
-Code: 60. DB::Exception: Received from localhost:9000, 127.0.0.1. DB::Exception: Table default.device_id_nb_tmp doesn't exist.. 
-0.025

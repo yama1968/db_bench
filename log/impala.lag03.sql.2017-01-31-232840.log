@@ -1,2 +1,0 @@
-Starting Impala Shell without Kerberos authentication
-Could not open file './impala.lag03.sql.sql': [Errno 2] No such file or directory: './impala.lag03.sql.sql'

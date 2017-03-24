@@ -1,0 +1,9 @@
+Code: 62. DB::Exception: Syntax error: failed at position 242 (line 15, col 9): sum(click) AS clicked,
+        count(*) AS cnt
+    FROM Train
+    GROUP BY hour
+    ORDER BY hour ASC
+)
+ORDER BY hour ASC;
+, expected )
+
