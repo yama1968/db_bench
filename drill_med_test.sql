@@ -1,22 +1,22 @@
 
 
-select click, count(*) as nb from dfs.`/home/yannick/tmp/train.parquet` group by click order by click;
+select click, count(*) as nb from dfs.`/home4/yannick4/tmp/train.parquet` group by click order by click;
 
 select banner_pos, count(*) as nb, avg(click) as p
-       from dfs.`/home/yannick/tmp/train.parquet`
+       from dfs.`/home4/yannick4/tmp/train.parquet`
        group by banner_pos
        order by banner_pos;
 
-select count(distinct device_type) from train;
+select count(distinct device_type) from dfs.`/home4/yannick4/tmp/train.parquet`;
 
 select device_type, count(*) as nb, avg(click) as p
-       from dfs.`/home/yannick/tmp/train.parquet`
+       from dfs.`/home4/yannick4/tmp/train.parquet`
        group by device_type
        order by nb desc;
 
 
 
-select count(distinct device_id) from dfs.`/home/yannick/tmp/train.parquet`;
+select count(distinct device_id) from dfs.`/home4/yannick4/tmp/train.parquet`;
 
 
 select nnb, count(*) as nb_device_id
@@ -24,7 +24,7 @@ select nnb, count(*) as nb_device_id
          select device_id, count(*) as nnb, sum(nb) as snb
          from (
            select device_id, device_type, count(*) as nb
-           from dfs.`/home/yannick/tmp/train.parquet`
+           from dfs.`/home4/yannick4/tmp/train.parquet`
            group by device_id, device_type
            )
          group by device_id
@@ -35,7 +35,7 @@ select nnb, count(*) as nb_device_id
 
 
 select device_id, count(*) as nb, avg(click) as p
-       from dfs.`/home/yannick/tmp/train.parquet`
+       from dfs.`/home4/yannick4/tmp/train.parquet`
        group by device_id
        order by nb desc
        limit 20;

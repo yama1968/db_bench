@@ -6,10 +6,10 @@ SELECT count(*) AS cnt,
        avg(click) AS p
   FROM (
     SELECT *
-      FROM dfs.`/home/yannick/tmp/train.parquet`
+      FROM dfs.`/home4/yannick4/tmp/train.parquet`
      WHERE banner_pos = '3'
     ) AS T;
 
 SELECT *
-  FROM dfs.`/home/yannick/tmp/train.parquet`
+  FROM dfs.`/home4/yannick4/tmp/train.parquet`
  WHERE device_type = '2';
