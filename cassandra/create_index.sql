@@ -1,0 +1,6 @@
+
+USE TEST;
+
+CREATE INDEX IF NOT EXISTS
+ON train (click)
+;
