@@ -1,0 +1,11 @@
+/*
+
+*/
+
+
+drop table if exists Dt_distrib
+0.007
+drop table Dt_per_day
+Received exception from server:
+Code: 60. DB::Exception: Received from localhost:9000, 127.0.0.1. DB::Exception: Table default.Dt_per_day doesn't exist.. 
+0.021
