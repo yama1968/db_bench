@@ -2,12 +2,8 @@
 
 library(sparklyr)
 library(dplyr)
-sc <- spark_connect(master = "local",
-                    config = spark_config("spark.yml"))
 
-###
-
-sc <- spark_connect(master = 'spark://localhost:7077',
+sc <- spark_connect(master = 'spark://patty:7077',
                     spark_home = '/home/yannick/Work/3p/spark-2.1.0-bin-hadoop2.7/')
 
 # system.time(df1 <- spark_read_csv(sc, name = "train10k", path = "/home/yannick/tmp/train10k.csv", repartition = 4, memory = TRUE, overwrite = TRUE))
@@ -23,17 +19,16 @@ sc <- spark_connect(master = 'spark://localhost:7077',
 
 ###
 
-system.time( df <- spark_read_parquet(sc,
-                                      name = "train",
-                                      path = "/home/yannick/tmp/train.parquet",
-                                      repartition = 0,
-                                      memory = FALSE) ) # Fastest setting!!!
+library(DBI)
+
+df <- tbl(sc, "train")
+
 
 system.time(foo <- df %>% group_by(click) %>% summarise(cnt = count()) %>% collect)
 # 1.2 sec!!!
 foo
 
-library(DBI)
+
 system.time(foo <- dbGetQuery(sc, "select banner_pos, count(*) as nb, avg(click) as p
        from train
        group by banner_pos
