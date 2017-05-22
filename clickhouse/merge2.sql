@@ -1,7 +1,5 @@
 
 
-RENAME TABLE Train to Train_raw;
-
 DROP TABLE IF EXISTS Train_prepared;
 
 CREATE VIEW Train_prepared

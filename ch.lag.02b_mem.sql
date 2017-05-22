@@ -14,8 +14,7 @@ create view Train3
   as select *,
             cast(substring(hour, 5, 2) as Int32) as int_day,
             cast(substring(hour, 7, 2) as Int32) as int_hour,
-            sipHash64(device_id) as hash_id,
-            sipHash64(device_ip) as hash_ip
+            sipHash64(concat(device_id, device_ip)) as hash_id_ip
        from Train;
 
 
@@ -26,12 +25,11 @@ create view Device_plus_dt_1
             int_hour,
             runningDifference(int_hour) as dt_hour,
             runningDifference(int_day) as dt_day,
-            runningDifference(hash_id) as dt_id,
-            runningDifference(hash_ip) as dt_ip
+            runningDifference(hash_id_ip) as dt_id_ip
        from (
          select
             *
-          from default.Train3 order by device_id, device_ip, int_day, int_hour
+          from default.Train3 order by int_day, device_id, device_ip, int_hour
          ) AS A;
 
 create view Device_plus_dt
@@ -39,7 +37,7 @@ create view Device_plus_dt
             device_ip,
             int_day,
             int_hour,
-            if(dt_id = 0 AND dt_ip = 0 AND dt_day = 0, dt_hour, NULL) as dt_hour
+            if(dt_id_ip = 0 AND dt_day = 0, dt_hour, NULL) as dt_hour
        from Device_plus_dt_1;
 
 

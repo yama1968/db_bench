@@ -1,4 +1,6 @@
 
+drop table if exists Train;
+
 create table Train (
 id String, click Int8, hour String, C1 String,
 banner_pos String, site_id String, site_domain String, site_category String,
