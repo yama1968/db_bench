@@ -4,8 +4,8 @@ import org.apache.spark.sql.SQLContext
 def time[A](a: => A) = {
         val now = System.nanoTime
        val result = a
-       val micros = (System.nanoTime - now) / 1000
-       println("%d microseconds".format(micros))
+       val micros = (System.nanoTime - now) / 1000000
+       println("%d milliseconds".format(micros))
        result
     }
 
@@ -32,11 +32,13 @@ val pdid = spark.index.parquet("/home4/yannick4/tmp/train.parquet")
 
 time {pdid.select("click", "hour", "device_id", "device_ip").filter($"device_id" === "74d0d05a").show}
 
-p.createOrReplaceTempView("train")
+p.createOrReplaceTempView("tp")
+
+time (spark.sql("select click, count(*) as cnt from tp group by click order by click").show)
 
 time {
   spark.sql("""select device_id, cnt from (
-                    select device_id, count(*) as cnt from train group by device_id
+                    select device_id, count(*) as cnt from tp group by device_id
                   ) as foo
                   where cnt < 20
                   order by cnt desc
