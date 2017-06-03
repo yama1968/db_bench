@@ -43,7 +43,7 @@ invalidate metadata;
 drop table train;
 
 create table train (
-id string NOT NULL, 
+id string NOT NULL,
 click int, hour string, C1 string, banner_pos string, site_id string, site_domain string, site_category string, app_id string, app_domain string, app_category string, device_id string, device_ip string, device_model string, device_type string, device_conn_type string, C14 string, C15 string, C16 string, C17 string, C18 string, C19 string, C20 string, C21 string,
 PRIMARY KEY(id)
 )
@@ -53,7 +53,7 @@ TBLPROPERTIES(
 'kudu.table_name' = 'train',
 'kudu.num_tablet_replicas' =  '1',
 'kudu.master_addresses' = 'localhost'
-) 
+)
 ;
 
 
@@ -62,4 +62,3 @@ insert into train select * from train_csv;
 select * from train limit 1;
 
 END
-
