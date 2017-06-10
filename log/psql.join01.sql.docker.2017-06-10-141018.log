@@ -1,0 +1,22 @@
+Timing is on.
+psql:./join01.sql:2: ERROR:  view "device_id_nb_tmp" does not exist
+CREATE VIEW
+Time: 110.800 ms
+psql:./join01.sql:9: ERROR:  table "train_features" does not exist
+psql:./join01.sql:13: NOTICE:  Table doesn't have 'DISTRIBUTED BY' clause -- Using column named 'id' as the Greenplum Database data distribution key for this table.
+HINT:  The 'DISTRIBUTED BY' clause determines the distribution of data. Make sure column(s) chosen are the optimal data distribution key to minimize skew.
+CREATE TABLE
+Time: 241.959 ms
+INSERT 0 40428967
+Time: 153122.864 ms
+ click |  count   
+-------+----------
+     0 | 33563901
+     1 |  6865066
+(2 rows)
+
+Time: 4258.625 ms
+DROP TABLE
+Time: 225.758 ms
+DROP VIEW
+Time: 92.057 ms

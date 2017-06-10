@@ -1,0 +1,24 @@
+Timing is on.
+DROP VIEW
+Time: 136.742 ms
+CREATE VIEW
+Time: 91.899 ms
+DROP TABLE
+Time: 209.146 ms
+psql:./join01.sql:13: NOTICE:  Table doesn't have 'DISTRIBUTED BY' clause -- Using column named 'id' as the Greenplum Database data distribution key for this table.
+HINT:  The 'DISTRIBUTED BY' clause determines the distribution of data. Make sure column(s) chosen are the optimal data distribution key to minimize skew.
+CREATE TABLE
+Time: 242.491 ms
+INSERT 0 40428967
+Time: 156422.100 ms
+ click |  count   
+-------+----------
+     0 | 33563901
+     1 |  6865066
+(2 rows)
+
+Time: 6125.494 ms
+DROP TABLE
+Time: 250.948 ms
+DROP VIEW
+Time: 83.771 ms
